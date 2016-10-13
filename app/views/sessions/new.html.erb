@@ -1,6 +1,6 @@
 <h1>Login</h1>
 
-<%= form_tag '/users/new' %>
+<%= form_tag '/login' %>
 
 	<p>
 		Email: <%= text_field_tag :email %>
@@ -12,4 +12,4 @@
 		<%= submit_tag "Submit" %>
 	</p>
 
-<% end %>
+<!-- Note to self: form_tag does not need an 'end' -->
