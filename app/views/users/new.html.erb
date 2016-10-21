@@ -3,6 +3,7 @@
 <%= form_for :user, url: '/users' do |f| %>
 	<p>
 		<%= f.label :name %>
+		<!-- name must be 5+ characters long; add error message or something -->
 		<%= f.text_field :name %>
 	</p>
 	<p>
