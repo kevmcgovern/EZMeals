@@ -2,13 +2,3 @@
 <div>
 	<p>Food for lazy people who want to cook good stuff</p>
 </div>
-<% if current_user %>
-<div>
-	<p><a href="/users/<%= current_user.id %>">Profile</a></p>
-</div>
-<% else %>
-<div>
-	<p><a href="/login">Login</a></p>
-	<p><a href="/users/new">Sign Up</a></p>
-</div>
-<% end %>
