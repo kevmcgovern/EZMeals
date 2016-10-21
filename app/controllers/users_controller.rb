@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-	
+
 	def new
 	end
 
 	def show
 		@user = User.find(params[:id])
 		if @user
-			link_to user_path(@user)
+			render 'show'
 		else
 			redirect_to '/'
 		end
@@ -14,9 +14,11 @@ class UsersController < ApplicationController
 
 	def create
 		user = User.new(user_params)
+		p user
+		user.save
 		if user.save
 			session[:user_id] = user.id
-			link_to user_path(user)
+			redirect_to user
 		else
 			render 'new'
 		end
