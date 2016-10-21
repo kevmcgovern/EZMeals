@@ -1,1 +1,13 @@
 <h1>Hello, <%= @user.name %></h1>
+<div>
+	Profile information placeholder
+</div>
+<div>
+	Content Placeholder
+</div>
+<div>
+	Content Placeholder
+</div>
+<div>
+	<%= button_to('Delete Account', user_path(@user), method: :delete, data: { confirm: "Are you sure?", disable_with: "loading...." }) %>
+</div>
