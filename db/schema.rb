@@ -29,8 +29,10 @@ ActiveRecord::Schema.define(version: 20160929175935) do
     t.string   "time_frame"
     t.integer  "calories"
     t.text     "recipe_collection"
+    t.integer  "user_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.index ["user_id"], name: "index_plans_on_user_id", using: :btree
   end
 
   create_table "recipes", force: :cascade do |t|

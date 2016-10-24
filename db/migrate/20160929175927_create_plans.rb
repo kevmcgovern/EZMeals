@@ -6,6 +6,8 @@ class CreatePlans < ActiveRecord::Migration[5.0]
     	t.integer :calories
     	t.text :recipe_collection
 
+    	t.references :user
+
     	t.timestamps null: false
     end
   end
