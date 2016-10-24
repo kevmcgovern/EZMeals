@@ -34,6 +34,7 @@
 						<li><form class="navbar-form" action="/logout" method="get">
 							<input class="btn btn-link" type="submit" value="Logout">
 						</form></li>
+            <li><%= link_to("Generate Plan", new_plan_path) %></li>
   					<% else %>
   					<li><%= link_to('Login', '/login', method: :get) %></li>
   					<li><%= link_to("Register", '/users/new') %></li>
