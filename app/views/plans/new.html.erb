@@ -2,8 +2,8 @@
 <div class="container">
 	<%= form_for @plan do |f| %>
 		<div class="form-group">
-			<%= f.label :name, "Meal Plan Name" %>
-			<%= f.text_filed :name %>
+			<%= f.label :plan_name, "Meal Plan Name" %>
+			<%= f.text_field :plan_name %>
 		</div>
 		<div class="form-group">
 			<%= f.label :calories %>
@@ -18,4 +18,11 @@
 			<%= f.submit "Create Plan", {class: "btn btn-default"} %>
 		</div>
 	<% end %>
+	<div>
+		<% if flash[:notice] %>
+			<%= flash[:notice].each do |error| %>
+				<p><%= error %></p>
+			<% end %>
+		<% end %>
+	</div>
 </div>
