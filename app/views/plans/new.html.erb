@@ -1,0 +1,28 @@
+<h1>Generate a new Meal Plan</h1>
+<div class="container">
+	<%= form_for @plan do |f| %>
+		<div class="form-group">
+			<%= f.label :plan_name, "Meal Plan Name" %>
+			<%= f.text_field :plan_name %>
+		</div>
+		<div class="form-group">
+			<%= f.label :calories %>
+			<%= f.number_field :calories %>
+		</div>
+		<div class="form-group">
+			<%= f.label :time_frame, "Time Frame" %>
+			<%= select("plan","time_frame", ["Day", "Week"], {include_blank: true}) %>
+		</div>
+		<%= f.hidden_field(:user_id, {value: current_user.id} ) %>
+		<div class="form-group">
+			<%= f.submit "Create Plan", {class: "btn btn-default"} %>
+		</div>
+	<% end %>
+	<div>
+		<% if flash[:notice] %>
+			<%= flash[:notice].each do |error| %>
+				<p><%= error %></p>
+			<% end %>
+		<% end %>
+	</div>
+</div>
