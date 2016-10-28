@@ -42,7 +42,7 @@ include HTTParty
 
 	private
 		def plan_params
-			params.require(:plan).permit(:calories, :time_frame, :user_id)
+			params.require(:plan).permit(:calories, :time_frame, :user_id, :plan_name)
 		end
 
 		base_uri 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/mealplans/generate?'
@@ -70,10 +70,6 @@ include HTTParty
 		end
 
 		def week_parse_regex(string)
-			# input: string that begins with the characters {\"id\":
-				# 8 characters, final one is at index 7
-			# Start the capture at index 8 
-			# Stop the capture at first non numerical character
 			return string.slice(/\d+/)
 		end
 end
