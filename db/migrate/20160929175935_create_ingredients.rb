@@ -5,6 +5,7 @@ class CreateIngredients < ActiveRecord::Migration[5.0]
     	t.string :amount
     	t.string :unit
     	t.integer :spoon_id
+    	t.references :recipe
 
     	t.timestamps null: false
     end

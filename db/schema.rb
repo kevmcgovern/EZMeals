@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(version: 20160929175935) do
     t.string   "amount"
     t.string   "unit"
     t.integer  "spoon_id"
+    t.integer  "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_ingredients_on_recipe_id", using: :btree
   end
 
   create_table "plans", force: :cascade do |t|
