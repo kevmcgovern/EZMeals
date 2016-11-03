@@ -19,12 +19,6 @@ helper PlansHelper
 	def create
 		@plan = Plan.new(plan_params)
 		api_call = generate_plan(@plan.calories, @plan.time_frame)
-		# p api_call
-		if @plan.time_frame == "Day"
-			@plan.recipe_collection = day_parse_json(api_call['meals'])
-		else
-			@plan.recipe_collection = week_parse_json(api_call['items'])
-		end
 		if @plan.save
 		  day_instantiate(api_call['meals'], @plan)
 			redirect_to @plan
@@ -58,26 +52,6 @@ helper PlansHelper
 			return response
 		end
 
-		def day_parse_json(json_object)
-		response = ""
-		json_object.each do |hash|
-			response += hash["id"].to_s + ", "
-			end
-		return response.slice(0, response.length - 2)
-		end
-
-		def week_parse_json(json_object)
-			response = ""
-			json_object.each do |hash|
-				response += week_parse_regex(hash['value']) + ", "
-			end
-			return response.slice(0, response.length - 2)
-		end
-
-		def week_parse_regex(string)
-			return string.slice(/\d+/)
-		end
-
 		def day_instantiate(api_response, plan_object)
 			api_response.each do |recipe|
 				raw_parameters = { :title => recipe['title'], :spoon_id => recipe['id'], :cook_time_minutes => recipe['readyInMinutes'], :plan_id => plan_object.id }
@@ -85,6 +59,8 @@ helper PlansHelper
 				recipe_object = Recipe.create(parameters.permit(:title, :spoon_id, :cook_time_minutes, :plan_id))
 			end
 		end
+
+		# Still need a week instantiate
 
 end
 
