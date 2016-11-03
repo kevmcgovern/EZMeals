@@ -45,5 +45,15 @@
   		
   	</nav>
     <%= yield %>
+    <div class="flash">
+    <% if flash[:success] %>
+      <p><%= flash[:success]%></p>
+    <% end %>
+    <% if flash[:notice] %>
+      <%= flash[:notice].each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    <% end %>
+  </div>
   </body>
 </html>
