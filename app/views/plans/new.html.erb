@@ -18,11 +18,4 @@
 			<%= f.submit "Create Plan", {class: "btn btn-default"} %>
 		</div>
 	<% end %>
-	<div>
-		<% if flash[:notice] %>
-			<%= flash[:notice].each do |error| %>
-				<p><%= error %></p>
-			<% end %>
-		<% end %>
-	</div>
 </div>
