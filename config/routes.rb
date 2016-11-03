@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   resources :users, except: :index
   resources :plans
-  resources :recipes, except: [:update, :edit] do
+  resources :recipes, except: [:update, :edit, :new] do
 	  resources :ingredients, except: [:destroy, :update, :edit]
 	end
 
