@@ -2,6 +2,7 @@ require 'httparty'
 
 class PlansController < ApplicationController
 include HTTParty
+helper PlansHelper
 
 	def index
 		@plans = Plan.all
@@ -18,13 +19,14 @@ include HTTParty
 	def create
 		@plan = Plan.new(plan_params)
 		api_call = generate_plan(@plan.calories, @plan.time_frame)
+		# p api_call
 		if @plan.time_frame == "Day"
 			@plan.recipe_collection = day_parse_json(api_call['meals'])
 		else
 			@plan.recipe_collection = week_parse_json(api_call['items'])
 		end
-		p @plan
 		if @plan.save
+		  day_instantiate(api_call['meals'], @plan)
 			redirect_to @plan
 		else
 			flash[:notice] = @plan.errors.full_messages
@@ -32,12 +34,15 @@ include HTTParty
 	end
 
 	def edit
+		@plan = Plan.find(params[:id])
 	end
 
 	def update
+		@plan = Plan.find(params[:id])
 	end
 
 	def destroy
+		@plan = Plan.find(params[:id])
 	end
 
 	private
@@ -72,6 +77,15 @@ include HTTParty
 		def week_parse_regex(string)
 			return string.slice(/\d+/)
 		end
+
+		def day_instantiate(api_response, plan_object)
+			api_response.each do |recipe|
+				raw_parameters = { :title => recipe['title'], :spoon_id => recipe['id'], :cook_time_minutes => recipe['readyInMinutes'], :plan_id => plan_object.id }
+				parameters = ActionController::Parameters.new(raw_parameters)
+				recipe_object = Recipe.create(parameters.permit(:title, :spoon_id, :cook_time_minutes, :plan_id))
+			end
+		end
+
 end
 
 
