@@ -1,0 +1,20 @@
+<h1><%= @recipe.title %></h1>
+<div class="container">
+	<% if @recipe.ingredients == [] %>
+		<div class="form-group">
+			<%= button_to "Get Instructions & Ingredients", { action: 'update' }, { class: 'btn btn-default', method: 'patch' } %>
+		</div>
+	<% else %>
+	<h2>Ingredients:</h2>
+		<ul>
+			<% @recipe.ingredients.each do |ingredient| %>
+			<li><%= ingredient.name %>: <%= ingredient.amount %> <%= ingredient.unit %></li>
+			<% end %>
+		</ul>
+	<% end %>
+	<% if @recipe.instructions != [] %>
+	<div class="col-xs-8">
+			<p><%= @recipe.instructions %></p>
+	</div>
+	<% end %>
+</div>
