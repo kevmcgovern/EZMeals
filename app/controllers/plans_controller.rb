@@ -36,7 +36,9 @@ helper PlansHelper
 	end
 
 	def destroy
-		@plan = Plan.find(params[:id])
+		plan = Plan.find(params[:id])
+		plan.destroy
+		redirect_to root_path
 	end
 
 	private

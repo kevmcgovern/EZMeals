@@ -39,6 +39,9 @@ include HTTParty
 	end
 
 	def destroy
+		recipe = Recipe.find(params[:id])
+		recipe.destroy
+		redirect_to current_user
 	end 
 
 	private
@@ -49,16 +52,6 @@ include HTTParty
 		def generate_recipe(spoon_id)
 			return response = HTTParty.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/#{spoon_id}/information?includeNutrition=false", :headers => { 'X-Mashape-Key' => ENV['SPOONACULAR_KEY'], 'Accept' => 'application/json'
 				})
-		end
-
-		def recipe_split(recipe_string)
-			return recipe_string.split(", ")
-		end
-
-		def recipe_assign(recipe_object, title, spoon_id, cooktime)
-			recipe_object.title = title
-			recipe_object.spoon_id = spoon_id
-			recipe_object.cooktime = cooktime
 		end
 
 		def ingredient_instantiate(api_response)
