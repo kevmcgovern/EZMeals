@@ -12,26 +12,36 @@ include HTTParty
 		@recipe = Recipe.find(params[:id])
 	end
 
-	def create
-		@recipe = Recipe.new(recipe_params)
-		recipes = Plan.find(@recipe.plan_id).recipe_collection
-		# api_call = generate_recipe(recipe_split(recipes)[0])
-		# 	respond_to do |format|
-		# 		ingredients_array = api_call['extendedIngredients']
-		# 		recipe_assign(@recipe, api_call['title'], api_call['id'], api_call['readyInMinutes'])
-		# 		format.html { render :template => '/ingredients/_new', :locals => { :recipe => @recipe, :ingredients => ingredients_array }, :layout => false }
-		# 		format.js { render :template => '/ingredients/_new', :locals => { :recipe => @recipe, :ingredients => ingredients_array }, :layout => false }
-		# 		# This isn't actually rendering anywhere! What the hell?
-		# 	end
-		if @recipe.save
-			flash[:success] = "Successfully created recipe object"
-			# redirect_to '/'
+	# def create
+	# 	@recipe = Recipe.find(params[:id])
+	# 	# parameters = ActionController::Parameters.new(:instructins => api_call['instructions'])
+
+	# 	if @recipe.save
+	# 		flash[:success] = "Now you have ingredients!"
+	# 		# redirect_to '/'
+	# 	else
+	# 		flash[:notice] = @recipe.errors.full_messages
+	# 	end
+	# end
+
+	def update
+		@recipe = Recipe.find(params[:id])
+		api_call = generate_recipe(@recipe.spoon_id)
+		if @recipe.update_attributes(:instructions => api_call['instructions'])
+		# @recipe.instructions = api_call['instructions']
+		# if @recipe.save
+			ingredient_instantiate(api_call)
+# Work on making this an AJAX call.
+			redirect_to :back
 		else
-			flash[:notice] = @recipe.errors.full_messages
+			@errors = @recipe.errors.full_messages
 		end
 	end
 
 	def destroy
+		recipe = Recipe.find(params[:id])
+		recipe.destroy
+		redirect_to current_user
 	end 
 
 	private
@@ -44,14 +54,12 @@ include HTTParty
 				})
 		end
 
-		def recipe_split(recipe_string)
-			return recipe_string.split(", ")
-		end
-
-		def recipe_assign(recipe_object, title, spoon_id, cooktime)
-			recipe_object.title = title
-			recipe_object.spoon_id = spoon_id
-			recipe_object.cooktime = cooktime
+		def ingredient_instantiate(api_response)
+			api_response['extendedIngredients'].each do |ingredient|
+			raw_parameters = {:name => ingredient['name'] , :amount => ingredient['amount'] , :unit => ingredient['unit'] , :spoon_id => ingredient['id'] , :recipe_id => @recipe.id }
+			parameters = ActionController::Parameters.new(raw_parameters)
+			ingredient_object = Ingredient.create(parameters.permit(:name, :amount, :unit, :spoon_id, :recipe_id))
+			end
 		end
 end
 
