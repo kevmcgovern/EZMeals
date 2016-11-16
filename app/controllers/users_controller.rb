@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
 
+		# May try to make custom 404 page later
+	# def index
+	# 	not_found
+	# end
+
 	def new
 	end
 
@@ -14,7 +19,6 @@ class UsersController < ApplicationController
 
 	def create
 		user = User.new(user_params)
-		p user
 		user.save
 		if user.save
 			session[:user_id] = user.id
