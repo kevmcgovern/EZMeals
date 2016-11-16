@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 			redirect_to @user
 		else
 			flash[:failure] = "Something went wrong"
-			redirect_to @user
+			render 'edit'
 		end
 	end
 
