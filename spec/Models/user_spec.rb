@@ -3,18 +3,18 @@ require "rails_helper"
 RSpec.describe User, :type => :model do
 
   describe "basic properties" do
-    let!(:user) { User.new(name: "Kevin", email: "kev@kev.com", password_digest: "$2a$10$yP65HDC5BjXvWHNRxGa08emsZGbj7bCi6IorTKI8i5XAZL3uQ3zRK") }
+    let!(:user) { build(:user) }
    	let!(:plan) {Plan.new(plan_name: "Test Test", time_frame: "day", calories: 2000, user_id: user.id)}
   	let!(:recipe) {Recipe.new(title: "Meat Lasagna", plan_id: plan.id)}
   	let!(:ingredient) {Ingredient.new(name: "Cheese", amount: "3", unit: "pounds", recipe_id: recipe.id)}
     context "object attributes" do
       # Has a name
       it "has a name" do
-        expect(user.name).to eq "Kevin"
+        expect(user.name).to eq "Thomas Jefferson"
       end
       # Has an email
       it "has an email" do
-        expect(user.email).to eq "kev@kev.com"
+        expect(user.email).to eq "tj@monticello.com"
       end
       # Has a password
       it "has a password" do
