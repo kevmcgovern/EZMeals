@@ -65,15 +65,18 @@ RSpec.describe User, :type => :model do
       it "has a one to many relationship with plans" do
       	expect(user.plans[0]).to be_a(Plan)
       end
-      # has_many recipes through plans (plan?)
+      # has_many recipes through plans
       it "has recipes associations through plans" do
       	expect(user.plans[0].recipes[0]).to be_a(Recipe)
       end
-      # has_many ingredients through recipes?
-      it "has access to ingredient objects through recipes" do
-      	p user.plans[0].recipes[0].ingredients
+      # has_many ingredients through recipes
+      it "has access to ingredient collection through recipes" do
       	expect(user.plans[0].recipes[0].ingredients).not_to be_empty
       end
+      # objects available through association are ingredient objects
+      it "has access to ingredient objects through recipes" do
+      	expect(user.plans[0].recipes[0].ingredients[0]).to be_a(Ingredient)
+    	end
     end
 
   end
