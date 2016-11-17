@@ -44,7 +44,7 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
-		user = User.find(params[:id])
+	user = User.find(params[:id])
 		session[:user_id] = nil
 		user.destroy
 		flash[:success] = "User record deleted"
