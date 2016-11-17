@@ -29,6 +29,7 @@ gem 'bcrypt', '~> 3.1.7'
 # Adding pry for console usability
 gem 'pry-rails', :group => :development
 gem 'rails-controller-testing'
+gem 'capybara'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
