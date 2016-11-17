@@ -1,4 +1,5 @@
 require 'rails_helper'
+# require 'capybara/rails'
 
 describe "the sign up process", :type => :feature do
   scenario 'signing up with valid credentials' do
