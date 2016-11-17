@@ -1,6 +1,9 @@
+services:
+  - postgresql
 
 before-script: 
   - bundle
+  - psql -c 'create database ezmeals_test;' -U postgres
 language: ruby
 rvm:
   - 2.3.1
