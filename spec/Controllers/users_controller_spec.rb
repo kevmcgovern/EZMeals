@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, :type => :controller do
-  let!(:user) { User.new(name: "Kevin", email: "kev@kev.com", password_digest: "$2a$10$yP65HDC5BjXvWHNRxGa08emsZGbj7bCi6IorTKI8i5XAZL3uQ3zRK") }
+  let!(:user) { build(:user) }
   context "GET #index" do
     it "raises routing error because route doesn't exist" do
       expect do
@@ -70,7 +70,7 @@ RSpec.describe UsersController, :type => :controller do
     end
 
     # Displays user's recipes/plans
-    # Need some sort of contrsuctor here
+    # Need some sort of constructor here
   end
 
   context "POST #create" do
@@ -168,8 +168,17 @@ RSpec.describe UsersController, :type => :controller do
       delete :destroy, params: { id: user.id }
       expect(response).to redirect_to root_url
     end
-    xit "deletes any associated plans" do
-      # Being delayed until ready to work with FactoryGirl
+    it "deletes any associated plans" do
+      plan = create(:plan, user_id: user.id)
+      expect{
+        delete :destroy, params: { id: user.id }
+      }.to change(Plan, :count).by(-1)
+    end
+    it "deletes recipes associated with plans as well" do
+      full_plan = create(:plan_with_recipes, user_id: user.id)
+      expect{
+        delete :destroy, params: { id: user.id }
+      }.to change(Recipe, :count).by(-3)
     end
   end
 end
