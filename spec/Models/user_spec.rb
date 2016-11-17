@@ -4,9 +4,9 @@ RSpec.describe User, :type => :model do
 
   describe "basic properties" do
     let!(:user) { build(:user) }
-   	let!(:plan) {Plan.new(plan_name: "Test Test", time_frame: "day", calories: 2000, user_id: user.id)}
-  	let!(:recipe) {Recipe.new(title: "Meat Lasagna", plan_id: plan.id)}
-  	let!(:ingredient) {Ingredient.new(name: "Cheese", amount: "3", unit: "pounds", recipe_id: recipe.id)}
+   	let!(:plan) { build(:plan) }
+  	let!(:recipe) { build(:recipe) }
+  	let!(:ingredient) { build(:ingredient) }
     context "object attributes" do
       # Has a name
       it "has a name" do
