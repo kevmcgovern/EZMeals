@@ -34,11 +34,12 @@ class UsersController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
-		if @user.update_attributes(user_params)
+		new_params = user_params.delete_if { |k, v| v.nil? || v.empty?}
+		if @user.update(new_params)
 			flash[:success] = "Profile Updated"
 			redirect_to @user
 		else
-			flash[:failure] = "Something went wrong"
+			flash[:notice] = "There was an error editing your profile. Please make sure all data is correct and try again."
 			render 'edit'
 		end
 	end
@@ -54,6 +55,10 @@ class UsersController < ApplicationController
 	private
 		def user_params
 			params.require(:user).permit(:name, :email, :password, :password_confirmation)
+		end
+
+		def delete_blanks(hash)
+			delete_if { |k, v| v.empty? || v.nil?}
 		end
 
 end
