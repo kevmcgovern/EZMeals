@@ -50,9 +50,7 @@
       <p><%= flash[:success]%></p>
     <% end %>
     <% if flash[:notice] %>
-      <%= flash[:notice].each do |error| %>
-        <p><%= error %></p>
-      <% end %>
+      <%= flash[:notice]%>
     <% end %>
   </div>
   </body>
