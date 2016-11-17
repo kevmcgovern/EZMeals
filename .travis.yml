@@ -7,3 +7,7 @@ before-script:
 language: ruby
 rvm:
   - 2.3.1
+script: 
+  - export RAILS_ENV=test
+  - be rake db:create db:migrate
+  - be rspec --fail-fast
