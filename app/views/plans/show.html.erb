@@ -1,6 +1,4 @@
-<<<<<<< Updated upstream
 <h1><%= @plan.plan_name %></h1>
-
 <div class="container">
 	<% @plan.recipes.each do |recipe| %>
 	<div class="col-xs-4">
@@ -9,18 +7,3 @@
 	</div>
 	<% end %>
 </div>
-=======
-<h1>Feast Your Eyes on <%= @plan.plan_name %></h1>
-<div class="container">
-	<div class="col-xs-3"></div>
-	<div class="col-xs-6">
-		<% recipe_array = @plan.recipe_collection.split(", ") %>
-		<% recipe_array.each do |digits| %>
-			<p><%= digits.to_i %></p><br>
-		<% end %>
-	</div>
-	<div class="col-xs-3"></div>
-</div>
-
-<!-- Pausing work on show page to investigate the form that brings in an object from another controller -->
->>>>>>> Stashed changes
