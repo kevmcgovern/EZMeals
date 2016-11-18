@@ -21,9 +21,10 @@ helper PlansHelper
 		api_call = generate_plan(@plan.calories, @plan.time_frame)
 		if @plan.save
 		  day_instantiate(api_call['meals'], @plan)
+		  flash[:notice] = 'Successfully generated plan'
 			redirect_to @plan
 		else
-			flash[:notice] = @plan.errors.full_messages
+			flash[:alert] = @plan.errors.full_messages
 		end
 	end
 
@@ -33,11 +34,13 @@ helper PlansHelper
 
 	def update
 		@plan = Plan.find(params[:id])
+		# INCOMPLETE
 	end
 
 	def destroy
 		plan = Plan.find(params[:id])
-		plan.destroy
+		plan.destroy!
+		flash[:notice] = 'Successfully deleted account'
 		redirect_to root_path
 	end
 
