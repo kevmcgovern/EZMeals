@@ -50,6 +50,8 @@ RSpec.describe UsersController, :type => :controller do
   context "GET #show" do
     before(:each) do
       user.save
+      current_user = user
+      session['user_id'] = user.id
     end
     # Correct HTTP response code
     it "reresponds successfully with an HTTP 200 status code" do
