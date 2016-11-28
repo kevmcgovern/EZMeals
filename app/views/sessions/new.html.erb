@@ -1,6 +1,5 @@
 <h1>Login</h1>
-
-<%= form_tag '/users/new' %>
+<%= form_tag '/login' %>
 
 	<p>
 		Email: <%= text_field_tag :email %>
@@ -9,7 +8,5 @@
 		Password: <%= password_field_tag :password %>
 	</p>
 	<p>
-		<%= submit_tag "Submit" %>
+		<%= submit_tag "Submit", { class: 'btn btn-default' }  %>
 	</p>
-
-<% end %>

@@ -1,0 +1,19 @@
+<h1>Hello, <%= @user.name %></h1>
+<div>
+	<%= link_to("Edit Profile", edit_user_path(@user)) %>
+</div>
+<div>
+	<h2>Profile Information</h2>
+	<div>Name: <%= @user.name %></div>
+	<div>Email: <%= @user.email %></div>
+	<div>Member Since: <%= @user.created_at %></div>
+</div>
+<div>
+	<% @user.plans.each do |plan| %>
+		<%= render partial: "plan_recipes", locals: { plan: plan }  %>
+	<% end %>
+</div>
+
+<div id="delete">
+	<%= button_to('Delete Account', user_path(@user), method: :delete, data: { confirm: "Are you sure?", disable_with: "loading...." }) %>
+</div>

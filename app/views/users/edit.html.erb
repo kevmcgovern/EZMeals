@@ -1,9 +1,8 @@
-<h1>Signup</h1>
-
-<%= form_for :user, url: '/users' do |f| %>
+<h1>Edit Profile</h1>
+<!-- This needs to be refactored as a partial -->
+<%= form_for @user do |f| %>
 	<p>
 		<%= f.label :name %>
-		<!-- name must be 5+ characters long; add error message or something -->
 		<%= f.text_field :name %>
 	</p>
 	<p>
@@ -19,6 +18,6 @@
 		<%= f.password_field :password_confirmation %>
 	</p>
 	<p>
-		<%= f.submit "Submit", { class: 'btn btn-default' } %>
+		<%= f.submit "Submit", { class: 'btn btn-default' }  %>
 	</p>
 <% end %>

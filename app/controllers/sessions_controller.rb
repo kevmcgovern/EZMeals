@@ -7,8 +7,10 @@ class SessionsController < ApplicationController
 		user = User.find_by_email(params[:email])
 		if user && user.authenticate(params[:password])
 			session[:user_id] = user.id
-			link_to user_path(user)
+			flash[:success] = 'Successfully logged in'
+			redirect_to user
 		else
+			flash[:notice] = 'Unsuccessful log in attempt. Please check your credentials and try again.'
 			redirect_to '/login'
 		end
 	end

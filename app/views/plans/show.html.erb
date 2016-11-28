@@ -1,0 +1,9 @@
+<h1><%= @plan.plan_name %></h1>
+<div class="container">
+	<% @plan.recipes.each do |recipe| %>
+	<div class="col-xs-4">
+		<p><a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a></p>
+		<p>Cooking Time: <%= recipe.cook_time_minutes %> minutes</p>
+	</div>
+	<% end %>
+</div>

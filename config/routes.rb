@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   root 'welcome#index'
   resources :users, except: :index
   resources :plans
-  resources :recipes, except: [:update, :edit]
-  resources :ingredients, except: [:destroy, :update, :edit]
+  resources :recipes, except: [:edit, :create, :new] do
+	  resources :ingredients, except: [:destroy, :update, :edit, :new, :create]
+	end
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
