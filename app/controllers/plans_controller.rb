@@ -5,20 +5,26 @@ include HTTParty
 helper PlansHelper
 
 	def index
+		authorize
 		@plans = Plan.all
 	end
 
 	def new
+		authorize
 		@plan = Plan.new
 	end
 
 	def show
+		authorize
 		@plan = Plan.find(params[:id])
 	end
 
 	def create
 		@plan = Plan.new(plan_params)
 		api_call = generate_plan(@plan.calories, @plan.time_frame)
+		print "This is meals"
+		p "*************************************** \n"
+		p api_call['meals']
 		if @plan.save
 		  day_instantiate(api_call['meals'], @plan)
 		  flash[:notice] = 'Successfully generated plan'
@@ -29,6 +35,7 @@ helper PlansHelper
 	end
 
 	def edit
+		authorize
 		@plan = Plan.find(params[:id])
 	end
 
@@ -58,6 +65,7 @@ helper PlansHelper
 		end
 
 		def day_instantiate(api_response, plan_object)
+			# byebug
 			api_response.each do |recipe|
 				raw_parameters = { :title => recipe['title'], :spoon_id => recipe['id'], :cook_time_minutes => recipe['readyInMinutes'], :plan_id => plan_object.id }
 				parameters = ActionController::Parameters.new(raw_parameters)
