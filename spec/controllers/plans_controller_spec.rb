@@ -177,14 +177,8 @@ RSpec.describe PlansController, type: :controller do
     end
     let!(:stub_plan_call) do
       # Let webmock loose!
-      response_body = { "meals" => [
-                {"id":795610,"title":"Death by Chocolate Zucchini Bread","readyInMinutes":65,"image":"death-by-chocolate-zucchini-bread-795610.jpg","imageUrls":["death-by-chocolate-zucchini-bread-795610.jpg"]},
-                {"id":442034,"title":"Bierock Casserole","readyInMinutes":45,"image":"Bierock-Casserole-442034.jpg","imageUrls":["Bierock-Casserole-442034.jpg"]},
-                {"id":773004,"title":"Supercharged Chicken Wings","readyInMinutes":80,"image":"supercharged-chicken-wings-773004.jpeg","imageUrls":["supercharged-chicken-wings-773004.jpeg"]}
-              ]}
-      p "response_body['meals] \n"
-      p response_body['meals']
-      stub_request(:get, /spoonacular-recipe-food-nutrition-v1.p.mashape.com*/).with(headers: { 'Accept' => 'application/json','X-Mashape-Key' => ENV['SPOONACULAR_KEY']}).to_return(status: [200, "OK"], body: response_body['meals'].to_json)
+      response_body =  { "meals" => [{'id':795610,'title':'Death by Chocolate Zucchini Bread','readyInMinutes':65}, {'id':442034,'title':'Bierock Casserole','readyInMinutes':45}, {'id':773004,'title':'Supercharged Chicken Wings','readyInMinutes':80}]}
+      stub_request(:any, /spoonacular-recipe-food-nutrition-v1.p.mashape.com*/).with(headers: { 'Accept' => 'application/json'}).to_return({status: 200, body: response_body.to_json, headers: {content_type: ["application/json"]}})
     end
     context "with valid attributes" do
       it "creates a new plan" do
@@ -192,7 +186,6 @@ RSpec.describe PlansController, type: :controller do
                    { calories: 2000, time_frame: "day", plan_name: "Stub Plan", user_id: user.id }
                    }
         expect do
-          # byebug
           post :create, params: params
         end.to change {Plan.count}.by(1)
         assert_requested stub_plan_call
