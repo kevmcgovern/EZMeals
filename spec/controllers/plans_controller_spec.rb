@@ -178,7 +178,7 @@ RSpec.describe PlansController, type: :controller do
     let!(:stub_plan_call) do
       # Let webmock loose!
       response_body =  { "meals" => [{'id':795610,'title':'Death by Chocolate Zucchini Bread','readyInMinutes':65}, {'id':442034,'title':'Bierock Casserole','readyInMinutes':45}, {'id':773004,'title':'Supercharged Chicken Wings','readyInMinutes':80}]}
-      stub_request(:any, /spoonacular-recipe-food-nutrition-v1.p.mashape.com*/).with(headers: { 'Accept' => 'application/json'}).to_return({status: 200, body: response_body.to_json, headers: {content_type: ["application/json"]}})
+      stub_request(:get, /https:\/\/spoonacular-recipe-food-nutrition-v1.p.mashape.com*/).with(headers: { 'Accept' => 'application/json', 'X-Mashape-Key' => ENV['SPOONACULAR_KEY'] }).to_return({status: 200, body: response_body.to_json, headers: {content_type: ["application/json"]}})
     end
     context "with valid attributes" do
       it "creates a new plan" do
