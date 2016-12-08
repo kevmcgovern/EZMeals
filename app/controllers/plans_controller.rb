@@ -2,17 +2,19 @@ require 'httparty'
 
 class PlansController < ApplicationController
 include HTTParty
-helper PlansHelper
 
 	def index
+		authorize
 		@plans = Plan.all
 	end
 
 	def new
+		authorize
 		@plan = Plan.new
 	end
 
 	def show
+		authorize
 		@plan = Plan.find(params[:id])
 	end
 
@@ -29,6 +31,7 @@ helper PlansHelper
 	end
 
 	def edit
+		authorize
 		@plan = Plan.find(params[:id])
 	end
 
@@ -72,30 +75,6 @@ end
 
 =begin
 
-Here's the json object from our first query:
-
-[
-{
-	"id"=>78160, 
-	"title"=>"Classic Eggs Benedict", 
-	"readyInMinutes"=>24, 
-	"image"=>"classic-eggs-benedict-2-78160.jpg", "imageUrls"=>["classic-eggs-benedict-2-78160.jpg"]
-}, 
-{
-	"id"=>248532, 
-	"title"=>"Diced Caprese Salad with a Pesto Dressing", 
-	"readyInMinutes"=>45, "image"=>"Diced-Caprese-Salad-with-a-Pesto-Dressing-248532.jpg",
-	"imageUrls"=>["Diced-Caprese-Salad-with-a-Pesto-Dressing-248532.jpg"]
-}, 
-{
-	"id"=>71776, 
-	"title"=>"Hula Joes", 
-	"readyInMinutes"=>21, 
-	"image"=>"hula_joes-71776.jpg", 
-	"imageUrls"=>["hula_joes-71776.jpg", 
-	"hula-joes-2-71776.jpg"]
-}
-]
 
 Here's the weekly json object (one day of 7)
 [

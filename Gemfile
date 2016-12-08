@@ -30,6 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'pry-rails', :group => :development
 gem 'rails-controller-testing'
 gem 'capybara'
+gem 'webmock'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

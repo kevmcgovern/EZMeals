@@ -9,11 +9,12 @@ class UsersController < ApplicationController
 	end
 
 	def show
+		authorize
 		@user = User.find(params[:id])
-		if @user
+		if @user && @user == current_user
 			render 'show'
-		else
-			redirect_to '/'
+		# else
+			# redirect_to '/'
 		end
 	end
 
