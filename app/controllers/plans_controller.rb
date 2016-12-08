@@ -57,6 +57,7 @@ include HTTParty
 
 		def generate_plan(calories, time_frame)
 			response = self.class.get("targetCalories=#{calories}&timeFrame=#{time_frame}", :headers => {'x-mashape-key' => ENV['SPOONACULAR_KEY'], 'accept' => 'application/json'})
+			byebug
 			return response
 		end
 
