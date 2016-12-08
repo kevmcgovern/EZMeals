@@ -1,16 +1,14 @@
-services:
+services: 
   - postgresql
+
 sudo: required
-TRAVIS_SECURE_ENV_VARS: true
 before-script: 
-  - bundle
-  - psql -c 'create database ezmeals_test;' -U postgres
+- bundle
+- psql -c 'create database ezmeals_test;' -U postgres
+
 language: ruby
-rvm:
-  - 2.3.1
+rvm: 2.3.1
 script: 
   - export RAILS_ENV=test
   - bundle exec rake db:create db:migrate
-  - bundle exec rspec --fail-fast
-os: osx
-secure: "ds9uCzxSWCRKtcHN8Xm3LfcoDx1FUdOlIOsaRFcH96NJ1LHKmwlDpYBFHStgL9yTU+eMYl2Fr+cGbyi08HMMmazGlM55+zqKzXPXAzZSeBlUv5ZhiBTtzmMFwzJZ10qetdDOpnBnjRaVmtMzeLQNiT8M0JT+g35ErANink5l6RwwJ1fNOcS3o5to67bQiLcAyAY6skZZYwFQIxh6cAsLixverOQBDGLtXbivJN/576jX5G3HGOm/RGxSptA29Py1j5p2TcwmXcrK21QvtIagRP6OKWiqYMwuPcHTqFL+uRKfWMWaw6goXHnamAu6KBn6K4tMXBpNZ2OAPeA4l6BUwEgp3ahrUUiqTV0gY3ogFT3vBerpUED2cssrf/AhVMOb9NHzixSpDZVy0selMelGPOCrvOEV6agM+Ls3TTto+nWxS4me9s8qqzoieY87rSraA+Zhr0I8RGkLaeUpisEKhy2kWaOrrKxhLNZL7Bj6N4fsWQ/IUQjqZUGgsoRdiHfroc03THFMpO41am4FMTkYJWG1ChI/2Ht/Ay97FKQW3Eyl40/yUE3NB8JSmf6VU2CEZidbXXXa6UMrKq/SPPfsuqzovzTZy6CQvfR8XxBcDVrBS3nVV9Rbv2CWEH/CuzfbXRcFyb3dsAIUEcepVjtDzwMjOWwgRgMetJrrE06beaY="
+  - bundle exec rspec
